@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org" th:replace="product/base::layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <title>This is Home page</title>
+</head>
+<body>
+<section>
+ <div class="card mr-5 ml-3" th:if=${product}>
+   <div class="card-body"  >
+     <div class="container text-center">
+       <img src="" style="height:200px; width:200px;" class="my_product_picture" th:src="@{'/img/'+${product.image}}" alt="product photo">
+         <h3 class="mt-3" ><span th:text="${product.productName}"></span><!--(<span th:text="${contact.secondName}"></span>)--></h3>
+
+    <!-- <div class="text-center">-->
+     <table class="table" >
+         <thead>
+         <tr>
+             <th scope="col">#ID</th>
+             <th scope="col">SSMPRODUCT<span th:text="${product.pId}"></span></th>
+
+
+         </tr>
+         </thead>
+         <tbody>
+         <tr>
+             <th scope="row">Name</th>
+             <td><span th:text="${product.productName}"></span></td>
+         </tr>
+         <tr>
+             <th scope="row">PRICE</th>
+             <td> €[[${product.price}]]/kg.</td>
+
+           <!--  <td><span th:text="${product.price}"></span></td>-->
+         </tr>
+
+         </tbody>
+
+     </table>
+
+
+     <div class="description mt-3 text-center">
+         <th:block th:utext="${product.productDescription}"></th:block>
+     </div>
+         <div class="container mt-3">
+            <!-- <td>
+                 <a href="#" th:onclick="|deleteProduct(${product.pId})|" class="btn btn-danger btn-sm btn-block">Delete</i></a>-->
+             <td><a th:href="@{'/user/delete/'+${product.pId}}" class="btn btn-danger btn-sm btn-block">Delete</i></a><!--this is second method to delete-->
+             <!--<form method="post" th:action="@{'/user/update-product/'+${product.pId}}" class="mt-2">
+                 <button type="submit" class="btn btn-primary btn-sm btn-block">Update</button>
+
+             </form>-->
+                 <a th:href="@{'/user/update-product/'+${product.pId}}" class="btn btn-primary btn-sm btn-block">Update</a></td>
+         </div>
+        <!-- <div class="container mt-3">
+             <button class="btn btn-danger btn-sm btn-block">Delete</button>
+             <button class="btn btn-primary btn-sm btn-block">Update</button>
+         </div>-->
+ </div>
+ </div>
+
+
+ </div>
+    <h1 class="text-center p-3 bg-danger text-white" th:unless="${product}">You don't have permission to see this contact....</h1>
+</section>
+</body>
+</html>

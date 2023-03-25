@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org" th:replace="category/base::layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <title>This is Home page</title>
+</head>
+<body>
+<section>
+ <div class="card mr-5 ml-3">
+   <div class="card-body">
+       <div class="container text-center">
+           <img class="" style="width: 80px;" src="" th:src="@{/img/category.png}" alt=""/>
+     <h1 class="text-center">Add Category</h1> </div>
+     <div class="container-fluid mt-1">
+       <div class="row">
+         <div class="col-md-10 offset-md-1">
+           <form action="#" th:object="${category}" enctype="multipart/form-data"
+           method="POST"
+           th:action="@{/user/process-category}"
+           class="mt-2">
+         <!--    category name-->
+             <div class="input-group">
+               <div class="input-group-prepend">
+      <div class="input-group-text">
+      <i class="fa fa-plus"></i>
+  
+</div>
+               </div>
+
+                 <input type="text" id="categoryName" name="categoryName" placeholder="Enter CategoryName here" class="form-control" />
+             </div>
+
+
+           <!--    this is description-->
+<div class="form-group mt-3">
+    <textarea id="textarea" placeholder="Enter category description" name="description" class="form-control" rows="10"></textarea>
+</div>
+
+<!--contact image-->
+               <div class="custom-file">
+                   <input type="file" name="categoryImage">
+               </div>
+               <div class="container text-center">
+                   <button class="btn btn-outline-primary">Save Category</button>
+               </div>
+
+
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>//Tiny Mce for paragraph
+<script type="text/javascript">
+  tinymce.init({
+    selector: 'textarea'
+  });
+   </script>
+<script>
+        $(document).ready(()=>{
+     $(".item").removeClass("active");
+     $("#add1-link").addClass("active");
+    });
+    </script>
+</section>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org" th:replace="cartItem/base::layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <title>This is Home page</title>
+</head>
+<body>
+<section >
+    <div class="card mr-5 ml-3" >
+        <div class="card-body">
+ <div><h1>Your shopping cartItem</h1>
+     <br/>
+ </div>
+<div class="row">
+    <div class="col">
+        <th:block th:each="item,status:${cartItems}">
+            <div class="row border rounded " th:with="product=${item.product}">
+                <div class="col">
+                    <div>[[${status.count}]] </div>
+                    <div>Remove Icon</div>
+                </div>
+                <div class="col">
+                    <td>
+                        <img src="" class="my_product_picture" th:src="@{'/img/'+${product.image}}" alt="product photo">
+                        <span th:text="${product.productName}"></span></td>
+
+
+                </div>
+<div>
+        <a>
+            <b> Created by:[[${user.name}]]</b>
+        </a>
+    </div>
+
+</div>
+
+        </th:block>
+    </div>
+        <div class="col">
+
+
+    </div>
+
+</div>
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

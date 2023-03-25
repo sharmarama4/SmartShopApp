@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org" th:replace="category/base::layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard</title>
+</head>
+<body>
+<section>
+  <div class="card mr-5 ml-3">
+    <div class="card-body">
+      <h1 class="text-center">Your Category</h1>
+      <div class="table-responsive-md">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">#ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="category :${categories}"><!--//you can write c-->
+          <th scope="row" th:text="${'SSMCATEGORY'+category.id}">1</th><!--'SSMUSER'in place of SS..string-->
+          <td>
+            <img src="" class="my_category_picture" th:src="@{'/img/'+${category.imageUrl}}" alt="category photo">
+            <a href="#" th:href="@{'/user/'+${category.id}+'/category'}"> <span th:text="${category.categoryName}"></span></a></td>
+
+
+         <!-- <td> <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can"></i>
+
+          </button>
+            <form method="post" th:action="@{'/user/update-category/'+${category.id}}" class="mt-2">
+              <button type="submit" class="btn btn-primary btn-sm"><i class="fa-sharp fa-solid fa-square-pen"></i>
+
+              </button></form></td>-->
+
+          <td><a th:href="@{/user/update-category/{id}(id=${category.id})}" class="btn btn-primary">Update</a>
+            <a th:href="@{/user/show/{id}(id=${category.id})}" class="btn btn-danger">Delete</a></td>
+
+        </tr>
+
+        </tbody>
+      </table>
+      </div>
+      <!--//this is pagination part-->
+      <div th:if="${totalPages>1}">
+        <div class="row col-sm-10">
+          <div class="col-sm-2">
+            Total Rows:[[${totalItems}]]
+          </div>
+          <div class="col-sm-1">
+    <span th:each="i:${#numbers.sequence(1,totalPages)}">
+      <a th:if="${currentPage != i}" th:href="@{'/user/pages/'+${i}}">[[${i}]]</a>
+      <span th:unless="${currentPage !=i}">[[${i}]]</span> &nbsp;&nbsp;
+    </span>
+          </div>
+          <div class="col-sm-1">
+            <a th:if="${currentPage <totalPages}" th:href="@{'/user/pages/'+${currentPage +1}}">Next</a>
+            <span th:unless="${currentPage<totalPages}">Next</span>
+          </div>
+          <div class="col-sm-1">
+            <a th:if="${currentPage <totalPages}" th:href="@{'/user/pages/'+${currentPage}}">Last</a>
+            <span th:unless="${currentPage<totalPages}">Last</span>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <script>
+    $(document).ready(()=>{
+ $(".item").removeClass("active");
+ $("#view1-link").addClass("active");
+});
+</script>
+</section>
+</body>
+</html>

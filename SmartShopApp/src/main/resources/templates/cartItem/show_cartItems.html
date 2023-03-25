@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org" th:replace="cartItem/base::layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard</title>
+</head>
+<body>
+<section>
+
+  <div class="container">
+  <div class="card mr-5 ml-3" >
+    <div class="card-body">
+      <h1 class="text-center">All CartItem List</h1>
+        <div style="overflow-x:auto;">
+        <div class="table-responsive-md">
+      <table id="table" border="1" class="table text-center">
+        <thead>
+        <tr>
+            <th scope="col">Count</th>
+          <th scope="col">ID</th>
+          <th scope="col">QUANTITY</th>
+          <th scope="col">CREATED BY</th>
+            <th scope="col">PRODUCT</th>
+          <th scope="col">DATE</th>
+            <th scope="col">PRICE</th>
+            <th scope="col">ACTION</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="cartItem,status:${cartItems}"><!--//you can write c-->
+           <th> [[${status.count}]]</th>
+            <td scope="row" th:text="${'SSM2022'+cartItem.id}">1</td>
+          <!--  <th style="width:10%" scope="row" th:text="${'SSMCART'+cartItem.id}">1</th>-->
+         <!-- <td scope="row" th:text="'CARTITEM'+${cartItem.id}"></td>'SSMUSER'in place of SS..string-->
+         <td>[[${cartItem.quantity}]]kg<!--[[${cartItem.product.price}]]EUR--></td>
+
+          <td><a th:href="@{'/user/cart/uid/'+${cartItem.user.id}}"><span th:text="${cartItem.user.name}"></span></a>
+
+            </td>
+
+<td>
+            <img src="" class="my_product_picture" th:src="@{'/img/'+${cartItem.product.image}}" alt="product photo">
+                 <span th:text="${cartItem.product.productName}"></span></td>
+
+
+            <td>  <h5 th:text="'Created on ' + ${cartItem.createdAt}">Created At</h5></td>
+<td>[[${cartItem.product.price*cartItem.quantity}]]EUR</td>
+
+          <td><a th:href="@{'/user/delete/cartItem/id/'+${cartItem.id}}" class="btn btn-danger btn-sm">Remove</i></a></td>
+
+
+        </tr>
+        </tbody>
+      </table>
+        </div>
+        </div>
+
+
+ <!-- Pagination part-->
+       <!-- <nav aria-label="Page navigation example">user/cart/{pageNo}/{pId}
+            <ul class="pagination">
+                <li th:if="${currentPage !=0}" class="page-item"><a th:href="@{'/user/cart/'+${i}+'/'+${pId}+${currentPage-1}}" class="page-link" href="#">Previous</a></li>
+                <li th:classappend="${currentPage==i-1?'active':''}" th:each="i:${#numbers.sequence(1,totalPages)}" class="page-item"><a th:href="@{'/user/cart/'+${i}+'/'+${pId}+${currentPage+1}}" class="page-link" href="#"><span th:text="${i}"></span></a></li>
+                <li th:if="${currentPage+1 !=totalPages}" class="page-item"><a class="page-link" href="#">Next</a></li>
+
+
+            </ul>
+        </nav>
+-->
+        <span id="val" style="text-align:center; float:right; margin-right: 11%"></span>
+      <script>
+          var table=document.getElementById("table"),sumVal=0;
+          for(var i=1;i<table.rows.length;i++){
+          sumVal=sumVal+parseInt(table.rows[i].cells[6].innerHTML);
+          }
+          document.getElementById("val").innerHTML="Grand Total : €"+sumVal;
+
+          console.log(sumVal);
+
+      </script>
+        <!-- //this is pagination part-->
+        <div th:if="${totalPages>1}">
+            <div class="row col-sm-10">
+                <div class="col-sm-2">
+                    Total Rows:[[${totalItems}]]
+                </div>
+                <div class="col-sm-1">
+    <span th:each="i:${#numbers.sequence(1,totalPages)}">
+      <a th:if="${currentPage != i}" th:href="@{'/user/cart/'+${i}+'/'+${pId}}">[[${i}]]</a>
+      <span th:unless="${currentPage !=i}">[[${i}]]</span> &nbsp;&nbsp;
+    </span>
+                </div>
+                <div class="col-sm-1">
+                    <a th:if="${currentPage <totalPages}" th:href="@{'/user/cart/'+${currentPage +1}+'/'+${pId}}">Next</a>
+                    <span th:unless="${currentPage<totalPages}">Next</span>
+                </div>
+                <div class="col-sm-1">
+                    <a th:if="${currentPage <totalPages}" th:href="@{'/user/cart/'+${currentPage}+'/'+${pId}}">Last</a>
+                    <span th:unless="${currentPage<totalPages}">Last</span>
+                </div>
+
+            </div>
+        </div>
+  </div>
+      </div>
+
+
+    </div>
+  </div>
+
+    <script>
+    $(document).ready(()=>{
+ $(".item").removeClass("active");
+ $("#view-link").addClass("active");
+});
+</script>
+</section>
+</body>
+</html>

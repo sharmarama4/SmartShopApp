@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org" th:replace="cartItem/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+</head>
+<body>
+<section>
+    <a href="#" th:href="@{'/user/show-cartItems/'+${product.pId}}"class="btn btn-info btn-sm mb-3">View All ItemList</a>
+    <div class="container">
+        <div class="card mr-5 ml-3">
+            <h1>Your CartItem </h1>
+            <div class="card-body">
+
+                <div class="table-responsive-md">
+                <table id="table" border="1" class="table text-center table-hover">
+                    <thead >
+                    <tr>
+                        <th scope="col">Count</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">QUANTITY</th>
+                        <th scope="col">CREATED BY</th>
+                        <th scope="col">PRODUCT</th>
+                        <th scope="col">DATE</th>
+                        <th scope="col">PRICE</th>
+                        <th scope="col">ACTION</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="cartItem,status:${cartItems1}"><!--//you can write c-->
+                        <th> [[${status.count}]]</th>
+                        <td scope="row" th:text="${'CARTITEM'+cartItem.id}"></td><!--'SSMUSER'in place of SS..string-->
+                        <div class="container mt-1 text-center">
+
+                        <td>[[${cartItem.quantity}]]kg<a th:href="@{'/user/update-cartItem/'+${cartItem.id}}"><i class="fa-sharp fa-solid fa-pen fa-1x"></i></a>
+                        </td></div>
+                        <td> <h5 th:text="'Created By:' + ${cartItem.user.name}"></h5>
+                        <td>
+                            <img src="" class="my_product_picture" th:src="@{'/img/'+${cartItem.product.image}}" alt="product photo">
+                            <span th:text="${cartItem.product.productName}"></span></td>
+
+
+                        <td>  <h5 th:text="'Created on ' + ${cartItem.createdAt}">Created At</h5>
+                            <h5 th:text="'Updated on ' + ${cartItem.upDatedAt}">Updated At</h5>
+
+                        </td>
+
+                        <td>[[${cartItem.product.price*cartItem.quantity}]]EUR</td>
+                          <td><a th:href="@{'/user/delete/cartItem/'+${cartItem.id}}" class="btn btn-danger btn-sm">Remove</i></a></td>
+
+
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                <div class="col-sm-4" th:unless="${#lists.isEmpty(cartItems1)}">
+
+                </div>
+
+
+                <span id="val" style="text-align:center; float:right; margin-right: 9%"></span>
+
+                <script>
+          var table=document.getElementById("table"),sumVal=0;
+          for(var i=1;i<table.rows.length;i++){
+          sumVal=sumVal+parseInt(table.rows[i].cells[6].innerHTML);
+          }
+          document.getElementById("val").innerHTML="Total Amount :€"+sumVal;
+
+          console.log(sumVal);
+
+      </script>
+
+                <div class="mt-2 text-center ">
+                    <button class="btn btn-danger btn-sm" style="float-right; margin-left-50%;">Check Out</button>
+
+                </div>
+                <div th:if="${#lists.isEmpty(cartItems1)}">
+                    <h5>your Cart is Empty</h5>
+                </div>
+
+
+
+<!--
+    &lt;!&ndash; Pagination part&ndash;&gt;
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li th:if="${currentPage !=0}" class="page-item"><a th:href="@{'/user/cart/uid/'+${id}+'/'+${currentPage-1}}" class="page-link" href="#">Previous</a></li>
+            <li th:classappend="${currentPage==i-1?'active':''}" th:each="i:${#numbers.sequence(1,totalPages)}" class="page-item"><a th:href="@{'/user/cart/uid/'+${id}+'/'+${currentPage+1}}" class="page-link" href="#"><span th:text="${i}"></span></a></li>
+            <li th:if="${currentPage+1 !=totalPages}" class="page-item"><a class="page-link" href="#">Next</a></li>
+
+
+        </ul>
+    </nav>-->
+    </div>
+    </div>
+    </div>
+    </div>
+    <script>
+        $(document).ready(()=>{
+     $(".item").removeClass("active");
+     $("#your-link").addClass("active");
+    });
+    </script>
+</section>
+
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org" th:replace="cartItem/base::layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <title>This is Home page</title>
+</head>
+<body>
+<section>
+    <div id="login">
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box"  class="col-md-12">
+                        <div class="container text-center mt-3">
+           <img class="" style="width: 80px;" src="" th:src="@{/img/shop.png}" alt=""/>
+
+
+           <h1>Add to cart quantity of <span th:text="${product.productName}"></span></h1>
+
+       </div>
+     <div class="container-fluid mt-1">
+       <div class="row">
+         <div class="col-md-10 offset-md-1">
+           <form action="#" th:object="${cartItems}" enctype="multipart/form-data"
+           method="POST"
+           th:action="@{'/user/process-Items/'+${product.pId}}"
+           class="mt-2">
+
+
+
+
+               <!--    this is price -->
+               <div class="input-group mt-3">
+                   <div class="input-group-prepend">
+                       <div class="input-group-text">
+                           <i class="fa-light fa-money-check-dollar"></i>
+
+                       </div>
+                   </div>
+
+                   <input type="number" id="quantity" name="quantity" placeholder="Enter quantity here" class="form-control" />
+               </div>
+
+               <!--    this is price -->
+               <div class="input-group mt-3">
+                   <div class="input-group-prepend">
+                       <div class="input-group-text">
+                           <i class="fa-light fa-money-check-dollar"></i>
+
+                       </div>
+                   </div>
+
+                   <input type="date" id="createdAt" name="createdAt" placeholder="Enter Price here" class="form-control" />
+               </div>
+                <!--   product name-->
+              <!-- <div class="input-group">
+                   <div class="input-group-prepend">
+                       <div class="input-group-text">
+                           <i class="fa fa-plus"></i>
+
+                       </div>
+                   </div>
+
+                   <input type="text" id="name" name="productName" placeholder="Enter ProductName here" class="form-control" />
+               </div>-->
+               <div class="container text-center">
+                   <button class="btn btn-outline-primary">Save your cart</button>
+               </div>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>//Tiny Mce for paragraph
+<script type="text/javascript">
+  tinymce.init({
+    selector: 'textarea'
+  });
+   </script>
+<script>
+    $(document).ready(()=>{
+        $(".item").removeClass("active");
+        $("#home-link").addClass("active");
+    });
+</script>
+
+</body>
+</html>

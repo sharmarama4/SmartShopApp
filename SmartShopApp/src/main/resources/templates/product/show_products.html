@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org" th:replace="product/base::layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard</title>
+</head>
+<body>
+<section>
+    <div class="container text-center">
+        <div class="card mr-5 ml-5" >
+            <div class="card-body">
+      <h1><pre>"Products from <span th:text="${category.categoryName}">categoryName</span>"</pre></h1>
+                <form action="#" th:object="${products}" method="get">
+                    <div class="input-group-text">
+                    <input type="text" id="txtSearch" name="keyword" class="form-control col-10" placeholder="search your products here">
+                    <button type="submit" class="btn btn-info "><i class="fa-solid fa-magnifying-glass"></i>
+
+                    </button>
+                        </div>
+                </form>
+
+    <!--  <div class="search-container1 my-3">
+          <input onkeyup="searchProduct()" id="search-input1" type="text" class="form-control" placeholder="search your products here">
+          <div class="search-result1">
+          </div>
+      </div>-->
+      <div class="table-responsive-md ">
+      <table style="width:100%" border="1" class="table table-striped table-hover">
+         <thead>
+          <tr>
+        <th scope="col">#ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">PRICE</th>
+              <th scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <tr th:each="product:${products}">
+        <th style="width:10%" scope="row" th:text="${'SSMPRODUCT'+product.pId}">1</th>
+        <td style="width:40%;"> <img src="" style="height:200px; width:200px;" class="my_product_picture" th:src="@{'/img/'+${product.image}}" alt="product photo">
+            <a href="#" th:href="@{'/user/'+${product.pId}+'/product'}"> <span th:text="${product.productName}"></span></a> </td>
+
+         <!-- <a href="#" th:href="@{'/user/'+${product.id}+'/product'}">
+              <span th:text="${product.productName}"></span></a></td>-->
+          <!--
+                  <td th:text="${product.productName}">Mark</td>
+          -->
+
+
+          <td > €[[${product.price}]]/kg.
+              <a th:href="@{'/user/add-cartItem/'+${product.pId}}" class="btn btn-warning btn-sm mr-0" ><i class="fa-sharp fa-solid fa-cart-plus"></i>
+
+              </a></td>
+          <!--<td>
+              <a href="#" th:onclick="|deleteProduct(${product.pId})|" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can"></i></a>-->
+          <td><a th:href="@{'/user/delete/'+${product.category.id}+'/'+${product.pId}}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can"></i></a>
+
+              <a th:href="@{'/user/update-product/'+${product.pId}}" class="btn btn-primary btn-sm"><i class="fa-sharp fa-solid fa-square-pen"></i></a></td>
+
+
+          <!--  <form method="post" th:action="@{'/user/update-product/'+${product.category.id}}" class="mt-2">
+                <button type="submit" class="btn btn-primary btn-sm"><i class="fa-sharp fa-solid fa-square-pen"></i>
+
+                </button></form> </td>-->
+       <!-- <td> <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can"></i>-->
+
+       <!-- </button>
+            <button class="btn btn-primary btn-sm"><i class="fa-sharp fa-solid fa-square-pen"></i>
+
+            </button></td>-->
+
+      </tr>
+
+      </tbody>
+    </table>
+      </div>
+      <!-- Pagination part-->
+      <nav aria-label="Page navigation example">
+          <ul class="pagination">
+              <li th:if="${currentPage !=0}" class="page-item"><a th:href="@{'/user/show-products/'+${id}+'/'+${currentPage-1}}" class="page-link" href="#">Previous</a></li>
+              <li th:classappend="${currentPage==i-1?'active':''}" th:each="i:${#numbers.sequence(1,totalPages)}" class="page-item"><a th:href="@{'/user/show-products/'+${id}+'/'+${currentPage+1}}" class="page-link" href="#"><span th:text="${i}"></span></a></li>
+              <li th:if="${currentPage+1 !=totalPages}" class="page-item"><a class="page-link" href="#">Next</a></li>
+
+
+          </ul>
+      </nav>
+  </div>
+</div>
+    </div>
+
+  </div>
+</div>
+
+    <script>
+    $(document).ready(()=>{
+ $(".item").removeClass("active");
+ $("#prod-link").addClass("active");
+});
+</script>
+
+</section>
+</body>
+</html>

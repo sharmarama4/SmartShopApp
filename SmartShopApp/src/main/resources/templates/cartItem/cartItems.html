@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org" th:replace="cartItem/base::layout(~{::section})">
+
+<head>
+
+    <title>CartItems</title>
+
+
+</head>
+
+<body>
+<section>
+    <h1>This is cartItem</h1>
+    <div class="main">
+    <pre id="quote">"CartItem from <span th:text="${cartItem.product.productName}">productName</span>"</pre>
+
+    <ul th:each="cartItem:${cartItems}">
+
+        <a th:text="${cartItem.quantity}"></a>
+
+        <a th:href="@{/user/deleteCartItem/{id}(id=${cartItem.id})}"><button class="btn btn-danger">Delete</button></a>
+    </ul>
+
+    <form method="post" th:action ="@{/user/addCartItem/{c}(c=${cartItem.product.productName})}">
+
+        <input type="number" name="quantity" th:text ="${cartItem.quantity}">
+
+        <input type="submit" value="create">
+
+    </form>
+    </div>
+</section>
+</body>
+
+</html>

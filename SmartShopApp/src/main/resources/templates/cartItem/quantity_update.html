@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org" th:replace="cartItem/base::layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <title>This is Home page</title>
+</head>
+<body>
+<section>
+  <div id="login">
+  <div class="container">
+    <div id="login-row" class="row justify-content-center align-items-center">
+      <div id="login-column" class="col-md-6">
+        <div id="login-box"  class="col-md-12">
+        <div class="container text-center mt-3">
+        <img class="" style="width: 50px;" src="" th:src="@{/img/shop.png}" alt=""/></div>
+
+            <form action="#" th:object="${cartItem}" class="text-center mt-2" enctype="multipart/form-data"
+                  method="POST"
+
+                  th:action="@{'/user/quantity/'+${cartItem.product.pId}}">
+              <h3>Update quantity of <span th:text="${cartItem.product.productName}"></span></h3>
+            <!--  <h3 class="text-center">Update your Cart </h3>-->
+              <!--<input type="hidden" th:field="*{id}"/>-->
+              <input type="hidden" th:value="${cartItem.id}" name="id">
+              <!--    this is price -->
+              <div class="input-group text-center mt-3">
+                <div class="input-group-prepend"></div>
+              <input  th:value="${cartItem.quantity}" type="number" id="quantity" name="quantity" placeholder="Enter quantity here" class="form-control ml-5 mr-2 mb-2 col-6"/>
+              </div>
+
+
+
+
+              <!--    this is price -->
+              <div class="input-group mt-3">
+                <div class="input-group-prepend">
+                </div>
+                <input th:date="${cartItem.upDatedAt}" type="date" id="upDatedAt" name="upDatedAt" class="form-control ml-5 mb-2 col-6"/>
+              </div>
+
+
+              <div class="container text-center mt-3">
+                <button class="btn btn-info">Save your cart</button>
+              </div>
+            </form>
+
+
+      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>//Tiny Mce for paragraph
+<script type="text/javascript">
+  tinymce.init({
+    selector: 'textarea'
+  });
+   </script>
+</body>
+</html>

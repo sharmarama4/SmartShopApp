@@ -1,0 +1,47 @@
+<!--
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http:www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+</head>
+<body>
+<h1>Welcome you are normal user,</h1>
+<h1>This is your private dashboard</h1>
+
+<h1>User Name <span th:text="${user.name}"></span></h1>
+<h1>User Email <span th:text="${user.email}"></span></h1>
+<h1> <a href="" th:href="@{/logout}">Logout</a></h1>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org" th:replace="product/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>This is Home page</title>
+</head>
+<body>
+<section>
+
+
+     <div class="container">
+         <div class="card">
+             <div class="card-body my-5">
+                 <div class="container text-center">
+                     <img src="" style="height:300px; width:300px;" class="my_product_picture" th:src="@{'/img/product_logo.png'}" alt="product photo">
+                 </div>
+                 <h1 class="text-center mt-3 text-secondary font-italic font-weight-light">Start Adding your products...</h1>
+
+                 <a th:href="@{'/user/add-product/'+${category.id}}" class="btn btn-primary btn-block mt-3 text-uppercase">Add new Product</a>
+             </div>
+         </div>
+     </div>
+    <script>
+        $(document).ready(()=>{
+     $(".item").removeClass("active");
+     $("#home-link").addClass("active");
+    });
+    </script>
+</section>
+</body>
+</html>

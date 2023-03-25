@@ -1,0 +1,40 @@
+<!--
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http:www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+</head>
+<body>
+<h1>Welcome you are normal user,</h1>
+<h1>This is your private dashboard</h1>
+
+<h1>User Name <span th:text="${user.name}"></span></h1>
+<h1>User Email <span th:text="${user.email}"></span></h1>
+<h1> <a href="" th:href="@{/logout}">Logout</a></h1>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org" th:replace="cartItem/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>This is Home page</title>
+</head>
+<body>
+<section>
+    <h1>This is your private dashboard</h1>
+    <h1>Product ID <span th:text="${cartItem.product.pId}"></span></h1>
+    <h1>Product name <span th:text="${cartItem.product.productName}"></span></h1>
+    <h1>Product price <span th:text="${cartItem.product.price}"></span></h1>
+    <h1>User Id <span th:text="${cartItem.user.id}"></span></h1>
+
+    <h1>User Name <span th:text="${cartItem.user.name}"></span></h1>
+    <script>
+        $(document).ready(()=>{
+     $(".item").removeClass("active");
+     $("#home-link").addClass("active");
+    });
+    </script>
+</section>
+</body>
+</html>

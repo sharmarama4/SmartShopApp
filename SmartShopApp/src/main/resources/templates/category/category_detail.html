@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org" th:replace="category/base::layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <title>This is Home page</title>
+</head>
+<body>
+<section>
+ <div class="card mr-5 ml-3" >
+   <div class="card-body"  >
+     <div class="container text-center">
+         <img src="" class="my_category_picture" th:src="@{'/img/'+${category.imageUrl}}" alt="category photo">
+         <td><a th:href="@{'/user/show-products/'+${category.id}+'/0'}" th:text ="${category.categoryName}"></a>
+
+    <!-- <div class="text-center">-->
+     <table class="table responsive-md">
+         <thead>
+         <tr>
+             <th scope="col">#ID</th>
+             <th scope="col">SSMCATEGORY<span th:text="${category.id}"></span></th>
+
+
+         </tr>
+         </thead>
+         <tbody>
+
+         </tbody>
+
+     </table>
+
+
+     <div class="description mt-3 text-center">
+         <th:block th:utext="${category.description}"></th:block>
+     </div>
+         <div class="container mt-3">
+         <a th:href="@{/user/update-category/{id}(id=${category.id})}" class="btn btn-primary">Update</a>
+             <a th:href="@{/user/show/{id}(id=${category.id})}" class="btn btn-danger">Delete</a>
+
+         <!--<button class="btn btn-danger btn-sm btn-block">Delete</button>
+             <button class="btn btn-primary btn-sm btn-block">Update</button>-->
+         </div>
+ </div>
+ </div>
+
+
+ </div>
+
+</section>
+</body>
+</html>
